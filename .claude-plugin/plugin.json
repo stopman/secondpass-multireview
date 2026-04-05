@@ -6,9 +6,6 @@
     "name": "Michael Stoppelman"
   },
   "homepage": "https://github.com/stopman/secondpass-multireview",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/stopman/secondpass-multireview.git"
-  },
+  "repository": "https://github.com/stopman/secondpass-multireview",
   "license": "MIT"
 }
