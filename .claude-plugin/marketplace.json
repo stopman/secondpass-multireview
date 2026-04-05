@@ -1,0 +1,14 @@
+{
+  "name": "secondpass-multireview",
+  "owner": {
+    "name": "Michael Stoppelman"
+  },
+  "plugins": [
+    {
+      "name": "secondpass-multireview",
+      "source": "./",
+      "description": "Get a second opinion on your Claude Code plans and code changes from other AI models via OpenRouter.",
+      "version": "1.0.0"
+    }
+  ]
+}

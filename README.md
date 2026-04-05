@@ -7,7 +7,11 @@ When you invoke `/secondpass-multireview:secondpass_multireview`, Claude gathers
 ## Installation
 
 ```bash
-claude /plugin install https://github.com/stopman/secondpass-multireview
+# Add the marketplace (one time)
+/plugin marketplace add stopman/secondpass-multireview
+
+# Install the plugin
+/plugin install secondpass-multireview@secondpass-multireview
 ```
 
 ## Setup
