@@ -1,7 +1,7 @@
 ---
 name: secondpass_multireview
 description: Send the active Claude plan to other AI models (Codex 5.3, Gemini 3.1 Pro) via OpenRouter for a second opinion.
-allowed-tools: Bash(source *secondpass_multireview*), Bash(git *), Bash(echo *), Read
+allowed-tools: Bash(source *), Bash(python3 *secondpass_multireview*), Bash(git *), Bash(echo *), Bash(cat *), Read, Write
 ---
 
 # Second Pass Multi-Review
@@ -29,12 +29,21 @@ Get a second opinion on your current plan from other AI models via OpenRouter.
    - Related tool/prompt definitions if the change affects AI behavior
    - Keep each snippet to ~50 lines max, use `# ... (trimmed)` for long sections
 
-2. **Write a temp file** — Assemble all sections into a temp file, then pipe to the script:
+2. **Locate the script** — Find the review script. It ships with this plugin:
    ```bash
-   source ~/.zshrc 2>/dev/null && python3 scripts/secondpass_multireview.py < /tmp/secondpass_review.md
+   SCRIPT=$(find ~/.claude/plugins -path "*/secondpass-multireview/scripts/secondpass_multireview.py" 2>/dev/null | head -1)
+   ```
+   If not found in plugins, check the project directory:
+   ```bash
+   SCRIPT=${SCRIPT:-$(find . -path "*/secondpass_multireview.py" 2>/dev/null | head -1)}
    ```
 
-   Format the temp file as:
+3. **Write a temp file and send** — Assemble all sections into a temp file, then pipe to the script:
+   ```bash
+   source ~/.zshrc 2>/dev/null && python3 "$SCRIPT" < /tmp/secondpass_review.md
+   ```
+
+   Format the temp file (`/tmp/secondpass_review.md`) as:
    ```
    ## Plan
    <plan summary>
@@ -46,7 +55,7 @@ Get a second opinion on your current plan from other AI models via OpenRouter.
 
    ## Code Context
    ### <filename:function_name>
-   ```python
+   ```<language>
    <relevant surrounding code>
    ```
    ```
@@ -55,14 +64,14 @@ Get a second opinion on your current plan from other AI models via OpenRouter.
    - **GPT-5.3 Codex** (OpenAI)
    - **Gemini 3.1 Pro** (Google)
 
-   Override models with: `SECONDPASS_MODELS="model/a,model/b" python3 scripts/secondpass_multireview.py`
+   Override models with: `SECONDPASS_MODELS="model/a,model/b" python3 "$SCRIPT"`
 
-3. **Present results** — Show each model's feedback clearly, organized by model. Highlight any:
+4. **Present results** — Show each model's feedback clearly, organized by model. Highlight any:
    - Consensus across models (things multiple models flag)
    - Disagreements worth considering
    - Actionable suggestions
 
-4. **Summarize** — End with a brief synthesis: what the models agree on, key concerns raised, and whether the plan should be adjusted.
+5. **Summarize** — End with a brief synthesis: what the models agree on, key concerns raised, and whether the plan should be adjusted.
 
 ## Requirements
 

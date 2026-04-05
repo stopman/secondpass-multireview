@@ -1,0 +1,14 @@
+{
+  "name": "secondpass-multireview",
+  "description": "Get a second opinion on your Claude Code plans and code changes from other AI models (GPT-5.3 Codex, Gemini 3.1 Pro) via OpenRouter.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Michael Stoppelman"
+  },
+  "homepage": "https://github.com/stopman/secondpass-multireview",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stopman/secondpass-multireview.git"
+  },
+  "license": "MIT"
+}
